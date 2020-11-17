@@ -23,6 +23,7 @@
 	<script type="text/javascript" src="js/utils.js"></script>
 	<script type="text/javascript" src="js/saves.js"></script>
 	<script type="text/javascript" src="js/map.js"></script>
+	<script type="text/javascript" src="js/star.js"></script>
 
 	<script type="text/javascript" src="js/layers/row1.js"></script>
 	<script type="text/javascript" src="js/layers/row2.js"></script>
@@ -53,6 +54,13 @@
 		<div v-if="player.tab=='changelog'" class="col right">
 			<button class="back" onclick="showTab('tree')">&gt;</button><br>
 			<ul>
+				<h5><i>“After Singularity”</i></h5>
+				<li><h3>v0.5.0</h3><li>
+				<li>You can now do a <spoiler>singularity</spoiler> reset, which will reset everything before it.</li>
+				<br>
+				<button class="tabButton" onclick="showTab('old-stuff')" style="background-color:var(--color); padding: 5px 20px 5px 20px"><h4>Experimental Changelog</h4><h5>(Content in experimental build can subject to change.)</h5></button><br>
+				<br>
+				<br>
 				<h5><i>“Conquer the World”</i></h5>
 				<li><h3>v0.4.0</h3><li>
 				<li>Added the <spoiler>point of singularity</spoiler>. Any civilization go past this point did not make it through.</li>
@@ -105,6 +113,8 @@
 		<div v-if="player.tab=='old-stuff'" class="col right">
 			<button class="back" onclick="showTab('changelog')">&gt;</button><br>
 			<ul>
+				<li><h3>v0.5.0&beta;0.1</h3><li>
+				<li>There is now some content beyond <spoiler>singularity</spoiler>. Just some.</li>
 			</ul>
 		</div>
 		<div v-if="player.tab=='info'" class="col right">

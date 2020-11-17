@@ -77,6 +77,22 @@ h1, h2, h3, b, input, .tabButton {
 	text-shadow: var(--hqProperty3);
 }
 
+#s {
+	color: rgba(0, 0, 0, 0);
+	text-shadow: white 0 0 10px;
+	animation: 30s infinite ease-in-out singularity;
+}
+@keyframes singularity {
+  0% { text-shadow: white 0 0 10px }
+  25% { text-shadow: white 0 0 0px }
+  50% { text-shadow: red 0 0 10px }
+  75% { text-shadow: red 0 0 0px }
+  100% { text-shadow: white 0 0 10px }
+}
+.s.upg.can {
+	text-shadow: white 0 0 5px;
+}
+
 .locked {
 	background-color: #bf8f8f;
 	cursor: not-allowed;
@@ -561,6 +577,13 @@ ul {
 #mapbox {
 	width: 500px;
 	height: 455px;
+	border: 2px solid;
+	border-color: rgba(255, 255, 255, 0.125) rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.25) rgba(255, 255, 255, 0.125);
+}
+
+#starbox {
+	width: 500px;
+	height: 500px;
 	border: 2px solid;
 	border-color: rgba(255, 255, 255, 0.125) rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.25) rgba(255, 255, 255, 0.125);
 }

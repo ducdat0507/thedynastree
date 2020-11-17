@@ -5,8 +5,9 @@ var NaNalert = false;
 var gameEnded = false;
 
 let VERSION = {
-	num: "0.4.0",
-	name: "Conquer the World",
+	num: "0.5.0",
+	name: "After Singularity",
+	beta: "0.1"
 }
 
 // Determines if it should show points/sec
@@ -431,6 +432,10 @@ VERSION.withName = VERSION.withoutName + (VERSION.name ? ": " + VERSION.name : "
 
 
 const ENDGAME = Decimal.pow(2, 262144);
+
+function LIMIT() {
+	return Decimal.pow(2, 262144)
+}
 
 function gameLoop(diff) {
 	if (player.points.gte(ENDGAME) || gameEnded) gameEnded = 1

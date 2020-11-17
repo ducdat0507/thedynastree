@@ -277,7 +277,7 @@ function loadVue() {
 		template: `
 			<div class="upgRow">
 				<div v-for="tab in Object.keys(data)">
-					<button v-if="!data[tab].unl || data[tab].unl()" class="tabButton" v-bind:style="[{'background-color': tmp.layerColor[layer]}, tmp.componentStyles[layer]['tab-button'], tmp.microtabs[layer][name][tab].buttonStyle]" v-on:click="player.subtabs[layer][name] = tab">{{tmp.microtabs[layer][name][tab].title ? tmp.microtabs[layer][name][tab].title : tab}}</button>
+					<button v-if="!data[tab].unl || data[tab].unl()" class="tabButton" v-bind:style="[{'background-color': tmp.layerColor[layer], 'text-shadow': tmp.layerColor[layer] == '#000000' ? 'white 0 0 5px' : ''}, tmp.componentStyles[layer]['tab-button'], tmp.microtabs[layer][name][tab].buttonStyle]" v-on:click="player.subtabs[layer][name] = tab">{{tmp.microtabs[layer][name][tab].title ? tmp.microtabs[layer][name][tab].title : tab}}</button>
 				</div>
 			</div>
 		`
@@ -351,6 +351,13 @@ function loadVue() {
 	Vue.component('map-box', {
 		template: `
 			<canvas id="mapbox" style="font-stretch:150%" width="500px" height="455px" onmousedown="onMapMouseDown(event)" onmousemove="onMapMouseMove(event)" onmouseup="onMapMouseUp(event)">
+			</canvas>
+		`
+	})
+	
+	Vue.component('star-box', {
+		template: `
+			<canvas id="starbox" style="font-stretch:150%" width="500px" height="500px" onmousedown="onStarMouseDown(event)" onmousemove="onStarMouseMove(event)" onmouseup="onStarMouseUp(event)">
 			</canvas>
 		`
 	})
