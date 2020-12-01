@@ -36,7 +36,7 @@ addLayer("m", {
 	type: "static",
 	base: 1.22727,
 	exponent: 1.01,
-	canBuyMax: () => false,
+	canBuyMax: () => hasUpg("s", 17),
 	resetsNothing: () => hasMilestone("t", 6),
 	
 	effect() {
@@ -103,11 +103,6 @@ addLayer("m", {
 			requirementDesc: () => "10 Managers",
 			done() { return player[this.layer].best.gte(10) },
 			effectDesc: () => "Managers now have the ability to manage jobs and lands.",
-		},
-		9: {
-			requirementDesc: () => "Not available yet",
-			done() { return false },
-			effectDesc: () => "To be continued...",
 		},
 	},
 	
@@ -484,6 +479,7 @@ addLayer("bd", {
 		eff.speed = Decimal.pow(player.bd.allocated, speedPow).mul(player.c.points.add(1).log(100).add(1))
 		if (hasChall("t", 11)) eff.speed = eff.speed.mul(tmp.challs.t[11].effect)
 		if (tmp.buyables.bd[22].effect) eff.speed = eff.speed.mul(tmp.buyables.bd[22].effect)
+		if (hasUpg("s", 23)) eff.speed = eff.speed.mul(tmp.upgrades.s[23].effect)
 		eff.speed = eff.speed.mul(tmp.buyables.wi[14].effect.first)
 		
 		eff.penalty = Decimal.div(player.bd.allocated, 6).add(1).recip()
@@ -493,7 +489,7 @@ addLayer("bd", {
 	type: "static",
 	base: 1.25,
 	exponent: 1.01,
-	canBuyMax: () => false,
+	canBuyMax: () => hasUpg("s", 22),
 
 	gainMult() {
 		return new Decimal(1)
@@ -1368,6 +1364,7 @@ addLayer("wi", {
 		if (tmp.buyables.wi[11].effect.add) ret = ret.add(tmp.buyables.wi[11].effect).mul(tmp.buyables.wi[11].effect.add(1))
 		if (hasUpg("wi", 54)) ret = ret.mul(tmp.upgrades.wi[54].effect)
 		if (hasUpg("wi", 65)) ret = ret.mul(tmp.upgrades.wi[65].effect)
+		if (hasUpg("c", 73)) ret = ret.mul(tmp.upgrades.c[73].effect)
 		return ret
 	},
 	
@@ -1559,7 +1556,7 @@ addLayer("wi", {
 			unl() { return player[this.layer].unl },
 			extraReq() { return hasUpg("wi", 25) && player.wi.points.gt(player.wi.bought) },
 			effect() {
-				let ret = Decimal.sub(player.t.elo, 1000).pow(Decimal.log10(player.t.elo).pow(1.8)).pow(Decimal.log(player.t.elo, 1e10).add(1))
+				let ret = Decimal.sub(player.t.elo, 1000).pow(Decimal.log10(player.t.elo).pow(1.8)).pow(Decimal.log(player.t.elo, 1e10).add(1)).add(1)
 				if (hasUpg("wi", 85)) ret = ret.tetrate(1.001).pow(12)
 				return ret;
 			},
@@ -2004,7 +2001,7 @@ addLayer("wi", {
 			title: () => "Structural Engineering",
 			cost(x) {
 				if (x.gte(6)) x = x.pow(2).div(6)
-				let cost = Decimal.pow(1000000, Decimal.pow(x.mul(0.05).add(1.25), x)).mul(5e10)
+				let cost = Decimal.pow(1000000, Decimal.pow(x.mul(0.05).add(1.25), x)).mul(1e10)
 				return cost.floor()
 			},
 			effect(x) { 

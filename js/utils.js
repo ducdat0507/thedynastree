@@ -1,6 +1,7 @@
 function getWorldName () {
 	let str = "World α"
-	if (player.b.banking && player.b.unl) str += " + " + tmp.buyables.b[[11, 12, 13, 21, 22, 23, 31, 32].find(x => tmp.buyables.b[x].canAfford)].title
+	var currentBanking = tmp.buyables.b[[11, 12, 13, 21, 22, 23, 31, 32].find(x => tmp.buyables.b[x].canAfford)];
+	if (player.b.banking && currentBanking !== undefined) str += " + " + currentBanking.title
 	if (player.bd.building) str += " + " +  tmp.buyables.bd[player.bd.building].title + " Building"
 	if (player.t.active) str += " + " + tmp.challs.t[player.t.active].name
 	return str
@@ -131,6 +132,26 @@ var statsResources = [
 		name: "└ Knowledge",
 		unl: () => player.wi.unl,
 		points: () => formatWhole(player.wi.knowledge),
+	},
+	{
+		layer: "s",
+		name: "Singularity Points",
+		unl: () => player.s.total.gte(1),
+		points: () => formatWhole(player.s.points),
+		total: () => formatWhole(player.s.total),
+		best: () => formatWhole(player.s.best),
+	},
+	{
+		layer: "s",
+		name: "├ Solarite",
+		unl: () => hasUpg("s", 11),
+		points: () => formatWhole(player.s.solarite),
+	},
+	{
+		layer: "s",
+		name: "└ Void Points",
+		unl: () => hasUpg("s", 17),
+		points: () => formatWhole(player.s.voidPoints),
 	},
 ]
 

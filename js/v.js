@@ -357,20 +357,8 @@ function loadVue() {
 	
 	Vue.component('star-box', {
 		template: `
-			<canvas id="starbox" style="font-stretch:150%" width="500px" height="500px" onmousedown="onStarMouseDown(event)" onmousemove="onStarMouseMove(event)" onmouseup="onStarMouseUp(event)">
+			<canvas id="starbox" style="font-stretch:150%" width="500px" height="500px" onmousedown="onStarMouseDown(event)" onmousemove="onStarMouseMove(event)" onmouseup="onStarMouseUp(event)" onmouseout="onStarMouseExit(event)">
 			</canvas>
-		`
-	})
-	
-	Vue.component('if-box', {
-		props: ['name', 'data'],
-		template: `
-			<div v-if="name">
-				<div v-for="item in data">
-				<div v-if="!Array.isArray(item)" v-bind:is="item" :layer= "layer" v-bind:style="tmp.componentStyles[layer][item]"></div>
-				<div v-else-if="item.length==3" v-bind:style="[tmp.componentStyles[layer][item], (item[2] ? item[2] : {})]" v-bind:is="item[0]" :layer= "layer" :data= "item[1]"></div>
-				<div v-else-if="item.length==2" v-bind:is="item[0]" :layer= "layer" :data= "item[1]" v-bind:style="tmp.componentStyles[layer][item]"></div>
-			</div>
 		`
 	})
 

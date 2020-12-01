@@ -113,6 +113,9 @@
 		<div v-if="player.tab=='old-stuff'" class="col right">
 			<button class="back" onclick="showTab('changelog')">&gt;</button><br>
 			<ul>
+				<li><h3>v0.5.0&beta;1.-1</h3><li>
+				<li>Added <spoiler>constellation upgrades</spoiler> and a new <spoiler>singularity</spoiler> tab.</li>
+				<br>
 				<li><h3>v0.5.0&beta;0.1</h3><li>
 				<li>There is now some content beyond <spoiler>singularity</spoiler>. Just some.</li>
 			</ul>
@@ -144,7 +147,7 @@
 			<h3>Achievements</h3><br/>
 			<br/>Unfortunately, this world does not have any achievements.
 			<br/>
-			<br/>Current endgame: <spoiler>The Singularity</spoiler>
+			<br/>Current endgame: <spoiler style="color: #a15000;background-color:#a15000">yOU KNOW WHAT THIS MEANS</spoiler>
 		</div>
 		<div v-if="player.tab=='statistics'" class="col right">
 			<button class="back" onclick="showTab('tree')">&gt;</button>
@@ -241,13 +244,18 @@
 			<h5 v-if="player.offTime !== undefined">
 				Offline Time: {{formatTime(player.offTime.remain)}}<br>
 			</h5>
+			<h5 v-if="tmp.pointGen.gt(tmp.layerReqs.s)">
+				<br/>
+				Point production is softcapped after {{format(tmp.layerReqs.s)}}.<br/>
+				Currently: {{format(tmp.pointNerf.recip().mul(100), 3).replace(",", "")}}% efficiency<br>
+			</h5>
 			<br>
 			<span>You have </span>
 			<h2 id="points">{{format(player.points)}}</h2>
 			<span> {{modInfo.pointsName}}</span>
 			<br><br>
 			<!-- *************************** Modify the tree in the table below! *************************** -->
-			<div v-if="player.points.lt(ENDGAME)">
+			<div v-if="player.points.lt(LIMIT())">
 				<table>
 					<td><layer-node layer='c' abb='C'></layer-node></td>
 				</table><table>
@@ -275,7 +283,7 @@
 					<td><layer-node layer='s' abb='S'></layer-node></td>
 				</table>
 			</div>
-			<div v-if="player.points.gte(ENDGAME)">
+			<div v-if="player.points.gte(LIMIT())">
 				<h5>The point of singularity has been reached. Your civilization did not make it through.</h5>
 				<br/><br/>
 				<table>

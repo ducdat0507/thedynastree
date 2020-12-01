@@ -7,7 +7,7 @@ var gameEnded = false;
 let VERSION = {
 	num: "0.5.0",
 	name: "After Singularity",
-	beta: "0.1"
+	beta: "1.-1"
 }
 
 // Determines if it should show points/sec
@@ -32,6 +32,7 @@ function getPointGen() {
 	if (tmp.layerEffs.sp) gain = gain.mul(tmp.layerEffs.sp)
 	if (player.sp.buyables[21].gt(0)) gain = gain.mul(tmp.buyables.sp[21].effect)
 	if (tmp.layerEffs.so) gain = gain.mul(tmp.layerEffs.so)
+	if (hasUpg("c", 71)) gain = gain.times(layers.c.upgrades[71].effect())
 		
 	var landMul = new Decimal(1)
 	for (var a = 11; a <= 20; a++)
@@ -47,6 +48,16 @@ function getPointGen() {
 	if (player.b.banking & 16) gain = gain.pow(Decimal.pow(player.b.bankTime, 2).add(1).recip())  
 	if (inChallenge("t", 11)) gain = gain.pow(0.5)
 	if (player.bd.building != 0) gain = gain.pow(tmp.layerEffs.bd.penalty)
+		
+	arietisPow = Decimal.pow(4.1, gain.add(1).log("1e1000").max(1).recip())
+	if (hasUpg("s", 12)) gain = gain.pow(arietisPow)
+	
+	if (gain.gte(tmp.layerReqs.s)) {
+		var tet = gain.log(tmp.layerReqs.s).pow(0.6)
+		gain = gain.mul(tmp.layerReqs.s.pow(tet.sub(1))).root(tet)
+		tmp.pointNerf = tet
+	}
+	
 	return gain
 }
 
@@ -431,10 +442,12 @@ VERSION.withoutName = "v" + VERSION.num + (VERSION.pre ? " Pre-Release " + VERSI
 VERSION.withName = VERSION.withoutName + (VERSION.name ? ": " + VERSION.name : "")
 
 
-const ENDGAME = Decimal.pow(2, 262144);
+const ENDGAME = Decimal.dInf;
 
 function LIMIT() {
-	return Decimal.pow(2, 262144)
+	var lim = Decimal.pow(2, 262144)
+	if (hasUpg("s", 21)) lim = lim.mul(tmp.upgrades.s[21].effect)
+	return lim
 }
 
 function gameLoop(diff) {
@@ -484,7 +497,6 @@ var ticking = false
 var interval = setInterval(function () {
 	if (player === undefined || tmp === undefined) return;
 	if (ticking) return;
-	if (gameEnded) return;
 	ticking = true
 	let now = Date.now()
 	let diff = (now - player.time) / 1e3

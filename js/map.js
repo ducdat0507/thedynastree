@@ -211,6 +211,12 @@ function isConquerable(x, y) {
 
 function initConquering(x, y) {
 	if (!isConquered(x, y) && isConquerable(x, y)) {
+		var oldDesc = mapFocusDesc
+		var id = player.world.map[y].charCodeAt(x)
+		var type = id & 15
+		mapFocusDesc = ["Waters", "Grasslands", "Mountains", "Tall Mountains", "Desert", "Tundra", "Forest", "Savanna", "Rainforest", "Iced Waters"][type]
+		if (id & 16) mapFocusDesc += ", Conquered"
+	
 		player.world.conquerX = x
 		player.world.conquerY = y
 		player.world.conquering = true
@@ -218,6 +224,8 @@ function initConquering(x, y) {
 		player.world.conquerProgress = new Decimal(0)
 		player.world.conquerGoal = getMapDifficulty(x, y)
 		player.world.encounterChance = getMapEncounterChance(x, y)
+		
+		mapFocusDesc = oldDesc
 	}
 }
 function doneConquering() {

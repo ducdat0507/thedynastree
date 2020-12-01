@@ -487,6 +487,7 @@ addLayer("b", {
 				if (player.sp.buyables[30].gt(0)) softcap = softcap.mul(tmp.buyables.sp[30].effect)
 				if (eff.gte(softcap)) eff = eff.mul(softcap).sqrt()
 				if (player.sp.buyables[28].gt(0) && tmp.buyables.sp[28].effect.sqrt) eff = eff.mul(tmp.buyables.sp[28].effect.sqrt())
+				if (hasUpg("s", 14)) eff = eff.mul(layers.s.upgrades[14].effect())
 				return eff
 			},
 			display() { // Everything else displayed in the buyable button after the title
@@ -525,6 +526,7 @@ addLayer("b", {
 				if (player.sp.buyables[30].gt(0)) softcap = softcap.mul(tmp.buyables.sp[30].effect)
 				if (eff.gte(softcap)) eff = eff.mul(softcap).sqrt()
 				if (player.sp.buyables[28].gt(0) && tmp.buyables.sp[28].effect.sqrt) eff = eff.mul(tmp.buyables.sp[28].effect.sqrt())
+				if (hasUpg("s", 14)) eff = eff.mul(layers.s.upgrades[14].effect())
 				return eff
 			},
 			display() { // Everything else displayed in the buyable button after the title
@@ -563,6 +565,7 @@ addLayer("b", {
 				if (player.sp.buyables[30].gt(0)) softcap = softcap.mul(tmp.buyables.sp[30].effect)
 				if (eff.gte(softcap)) eff = eff.mul(softcap).sqrt()
 				if (player.sp.buyables[28].gt(0) && tmp.buyables.sp[28].effect.sqrt) eff = eff.mul(tmp.buyables.sp[28].effect.sqrt())
+				if (hasUpg("s", 14)) eff = eff.mul(layers.s.upgrades[14].effect())
 				return eff
 			},
 			display() { // Everything else displayed in the buyable button after the title
@@ -596,6 +599,7 @@ addLayer("b", {
 				if (player.sp.buyables[30].gt(0)) softcap = softcap.mul(tmp.buyables.sp[30].effect)
 				if (eff.gte(softcap)) eff = eff.mul(softcap).sqrt()
 				if (player.sp.buyables[28].gt(0) && tmp.buyables.sp[28].effect.sqrt) eff = eff.mul(tmp.buyables.sp[28].effect.sqrt())
+				if (hasUpg("s", 14)) eff = eff.mul(layers.s.upgrades[14].effect())
 				return eff
 			},
 			display() { // Everything else displayed in the buyable button after the title
@@ -628,6 +632,7 @@ addLayer("b", {
 				if (player.sp.buyables[30].gt(0)) softcap = softcap.mul(tmp.buyables.sp[30].effect)
 				if (eff.gte(softcap)) eff = eff.mul(softcap).sqrt()
 				if (player.sp.buyables[28].gt(0) && tmp.buyables.sp[28].effect.sqrt) eff = eff.mul(tmp.buyables.sp[28].effect.sqrt())
+				if (hasUpg("s", 14)) eff = eff.mul(layers.s.upgrades[14].effect())
 				return eff
 			},
 			display() {
@@ -659,6 +664,7 @@ addLayer("b", {
 				if (player.sp.buyables[30].gt(0)) softcap = softcap.mul(tmp.buyables.sp[30].effect)
 				if (eff.gte(softcap)) eff = eff.mul(softcap).sqrt()
 				if (player.sp.buyables[28].gt(0) && tmp.buyables.sp[28].effect.sqrt) eff = eff.mul(tmp.buyables.sp[28].effect.sqrt())
+				if (hasUpg("s", 14)) eff = eff.mul(layers.s.upgrades[14].effect())
 				return eff
 			},
 			display() {
@@ -688,6 +694,7 @@ addLayer("b", {
 			effect(x) { 	
 				var eff = player[this.layer].buyables[this.id].add(1).pow(0.6)	
 				if (player.sp.buyables[28].gt(0) && tmp.buyables.sp[28].effect.sqrt) eff = eff.mul(tmp.buyables.sp[28].effect.sqrt())
+				if (hasUpg("s", 14)) eff = eff.mul(layers.s.upgrades[14].effect())
 				return eff	
 			},	
 			display() { 	

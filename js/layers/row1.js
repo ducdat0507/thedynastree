@@ -30,6 +30,7 @@ addLayer("c", {
 		let mul = new Decimal(1)
 		if (hasUpg(this.layer, 24)) mul = mul.mul(1.25);
 		if (hasUpg(this.layer, 32)) mul = mul.mul(layers.c.upgrades[32].effect())
+		if (hasUpg(this.layer, 72)) mul = mul.mul(layers.c.upgrades[72].effect())
 		mul = mul.mul(tmp.layerEffs.b)
 		mul = mul.mul(tmp.layerEffs.m)
 		if (player.sp.buyables[22].gt(0)) mul = mul.mul(tmp.buyables.sp[22].effect)
@@ -45,7 +46,7 @@ addLayer("c", {
 	},
 
 	upgrades: {
-		rows: 6,
+		rows: 7,
 		cols: 4,
 		11: {
 			desc: () => "Generates " + format(tmp.pointGen) + " points every second.",
@@ -342,6 +343,63 @@ addLayer("c", {
 				return ret;
 			},
 			effectDisplay(fx) { return "×" + format(fx, 3) },
+		},
+		71: {
+			desc: () => "Boost point production based on coins.",
+			cost() {
+				var upgCount = 0
+				if (hasUpg('c', 71)) upgCount++
+				if (hasUpg('c', 72)) upgCount++
+				if (hasUpg('c', 73)) upgCount++
+				if (hasUpg('c', 74)) upgCount++
+				return new Decimal("1e2000").pow(Decimal.pow(upgCount + 2, upgCount))
+			},
+			unl() { return hasUpg("s", 13) },
+			effect() {
+				let ret = Decimal.pow(10, player.c.points.add(1).log(10).pow(0.9))
+				return ret;
+			},
+			effectDisplay(fx) { return "×" + format(fx) },
+		},
+		72: {
+			desc: () => "Boost coin production based on points.",
+			cost() {
+				var upgCount = 0
+				if (hasUpg('c', 71)) upgCount++
+				if (hasUpg('c', 72)) upgCount++
+				if (hasUpg('c', 73)) upgCount++
+				if (hasUpg('c', 74)) upgCount++
+				return new Decimal("1e2000").pow(Decimal.pow(upgCount + 2, upgCount))
+			},
+			unl() { return hasUpg("s", 13) },
+			effect() {
+				let ret = Decimal.pow(10, player.points.add(1).log(10).pow(0.75))
+				return ret;
+			},
+			effectDisplay(fx) { return "×" + format(fx) },
+		},
+		73: {
+			desc: () => "Boost knowledge production based on points.",
+			cost() {
+				var upgCount = 0
+				if (hasUpg('c', 71)) upgCount++
+				if (hasUpg('c', 72)) upgCount++
+				if (hasUpg('c', 73)) upgCount++
+				if (hasUpg('c', 74)) upgCount++
+				return new Decimal("1e2000").pow(Decimal.pow(upgCount + 2, upgCount))
+			},
+			unl() { return hasUpg("s", 13) },
+			effect() {
+				let ret = Decimal.pow(10, player.points.add(1).log(10).pow(0.1))
+				return ret;
+			},
+			effectDisplay(fx) { return "×" + format(fx) },
+		},
+		74: {
+			desc: () => "Not yet implemented.",
+			cost: () => new Decimal(0),
+			unl() { return false },
+			extraReq() { return false },
 		},
 	},
 	update(diff) {
